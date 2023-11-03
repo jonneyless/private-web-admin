@@ -1,0 +1,46 @@
+.layim-chat-username .layim-chat-members, .layim-chat-username .layui-icon {
+    display: none !important;
+}
+
+.layim-chat-footer {
+    border-top: 1px solid #CCCCCC !important;
+}
+
+.layim-tool-face, .layim-tool-image, .layui-layim-remark, .layui-layim-status, .layim-chat-username{
+    /*cursor: not-allowed;*/
+    /*pointer-events: none;*/
+}
+
+.layim-tool-face, .layim-chat-username, .layui-layim-remark{
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.layui-layim-photos {
+    width: 100px;
+}
+
+.layui-layer-content {
+    background-color: rgba(245, 245, 245)!important;
+    color: #333!important;
+}
+
+.layui-layer-TipsT {
+    display: none;
+}
+
+.top-stlye {
+    background: #fff;
+    padding: 9px;
+    font-size: 10px;
+    position: absolute;
+    border: 1px solid #e2e2e2;
+    z-index: 9;
+    width: calc(100% - 20px);
+    display: none;
+}
+
+.top-stlye > div {
+    border-left: 2px solid #4e6ef2;
+    padding-left: 10px;
+}
