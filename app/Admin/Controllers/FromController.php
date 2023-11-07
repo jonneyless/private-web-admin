@@ -61,7 +61,7 @@ class FromController extends AdminController
 
             return $admin["nickname"] . " " . $admin["name"];
         })->filter($users_filter);
-        
+
         $grid->column('status', "状态 ")->display(function ($status) {
             if ($status == 1) {
                 return "<span class='label label-success'>正常</span>";
@@ -95,7 +95,7 @@ class FromController extends AdminController
             2 => "成功",
             3 => "失败",
         ]);
-        
+
         $grid->column('created_at', "开始时间")->sortable()->hide();
         $grid->column('updated_at', "最近聊天时间")->sortable();
 
@@ -124,7 +124,7 @@ class FromController extends AdminController
                 });
             });
     }
-    
+
     public function fromback($id, Content $content)
     {
         return $content
@@ -136,18 +136,18 @@ class FromController extends AdminController
                 });
             });
     }
-    
+
     public function changeFlag()
     {
         $parameters = request()->all();
-        
+
         if (is_wrong_data($parameters, "from_id")) {
             return handle_response([], "error");
         }
         if (is_wrong_data($parameters, "flag")) {
             return handle_response([], "error");
         }
-        
+
         $from_id = $parameters["from_id"];
         $flag = $parameters["flag"];
 
@@ -157,27 +157,27 @@ class FromController extends AdminController
         if (!$fromer) {
             return handle_response([], "操作成功");
         }
-        
+
         $fromer->flag = $flag;
         $fromer->verify_error_num = 0;
         $fromer->reason = "";
-        
+
         $fromer->save();
-        
+
         return handle_response([], "操作成功");
     }
-    
+
     public function changeStatus()
     {
         $parameters = request()->all();
-        
+
         if (is_wrong_data($parameters, "from_id")) {
             return handle_response([], "error");
         }
         if (is_wrong_data($parameters, "status")) {
             return handle_response([], "error");
         }
-        
+
         $from_id = $parameters["from_id"];
         $status = $parameters["status"];
 
@@ -187,10 +187,10 @@ class FromController extends AdminController
         if (!$fromer) {
             return handle_response([], "操作成功");
         }
-        
+
         $fromer->status = $status;
         $fromer->save();
-        
+
         return handle_response([], "操作成功");
     }
 }
