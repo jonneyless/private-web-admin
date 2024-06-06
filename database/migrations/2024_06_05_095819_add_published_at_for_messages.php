@@ -15,6 +15,7 @@ class AddPublishedAtForMessages extends Migration
     {
         Schema::table('messages', function (Blueprint $table) {
             $table->integer('published_at', false, true)->default(0)->after('created_at');
+            $table->index('published_at', 'idx_published_at');
         });
     }
 
