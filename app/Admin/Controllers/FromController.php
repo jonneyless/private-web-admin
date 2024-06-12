@@ -5,13 +5,13 @@ namespace App\Admin\Controllers;
 use App\DataModels\From as DataFrom;
 use App\DataModels\FromBack as DataFromBack;
 use App\Models\From;
+use App\Service\FromService;
 use App\Service\UserService;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
-use App\Service\FromService;
 
 class FromController extends AdminController
 {
@@ -36,6 +36,7 @@ class FromController extends AdminController
             $filter->disableIdFilter();
 
             $filter->column(1 / 2, function ($filter) {
+                $filter->equal('id', "id");
                 $filter->equal('user_tg_id', "用户tgId");
                 $filter->like('fullname', "昵称");
                 $filter->like('username', "用户名");
@@ -98,6 +99,16 @@ class FromController extends AdminController
 
         $grid->column('created_at', "开始时间")->sortable()->hide();
         $grid->column('updated_at', "最近聊天时间")->sortable();
+        // $grid->column('deleted', "tg账号状态")->display(function ($i) {
+        //     if ($i == 1) {
+        //         return "<span class='label label-danger'>注销</span>";
+        //     } else {
+        //         return "<span class='label label-success'>正常</span>";
+        //     }
+        // })->filter([
+        //     1 => "注销",
+        //     2 => "正常",
+        // ]);
 
         $grid->disableFilter(false);
         $grid->disableCreateButton();

@@ -33,4 +33,9 @@ Route::group([
     $router->post('from/changeStatus', 'FromController@changeStatus');
     
     $router->resource('evaluate', EvaluateController::class);
+
+    $router->get('jieba', "JiebaController@index");
+    Route::post("jieba/data", "JiebaController@data");
+
+    $router->resource('officalkefu', OfficalKefuController::class);
 });

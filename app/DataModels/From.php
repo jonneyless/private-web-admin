@@ -3,9 +3,10 @@
 namespace App\DataModels;
 
 use App\Service\AssistService;
-use App\Service\UserService;
 use App\Service\FromService;
 use App\Service\MessageService;
+use App\Service\UserService;
+use Illuminate\Support\Facades\Cache;
 
 class From
 {
@@ -27,6 +28,22 @@ class From
         foreach ($messages as $key => $message) {
             if ($message["type"] > 1) {
                 $messages[$key]["file_path"] = AssistService::getMediaFullName($from["user_tg_id"], $message["file_name"]);
+            }
+
+            $k = sprintf("userinfo%s", $message["user_id"]);
+            if (Cache::has($k)) {
+                $obj = Cache::get($k);
+
+                $messages[$key]["fullname"] = $obj["name"] . " " . $obj["nickname"];
+            } else {
+                $obj = UserService::one($message["user_id"]);
+                if ($obj) {
+                    Cache::put($k, $obj, 60);
+
+                    $messages[$key]["fullname"] = $obj["name"] . " " . $obj["nickname"];
+                } else {
+                    $message[$key]["fullname"] = "";
+                }
             }
         }
 

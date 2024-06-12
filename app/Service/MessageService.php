@@ -14,7 +14,7 @@ class MessageService
             $query->where("from_tg_id", $condition["from_tg_id"]);
         }
 
-        $query->orderBy("id", "asc");
+        $query->orderBy("created_at", "asc");
 
         return obj_to_array($query->get());
     }

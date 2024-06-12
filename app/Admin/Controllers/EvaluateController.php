@@ -3,12 +3,11 @@
 namespace App\Admin\Controllers;
 
 use App\Models\LogEvaluate;
+use App\Service\UserService;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
-use App\Service\UserService;
-use Encore\Admin\Facades\Admin as FacadesAdmin;
 
 class EvaluateController extends AdminController
 {
@@ -64,6 +63,10 @@ class EvaluateController extends AdminController
                 return "<span class='label label-warning'>中评</span>";
             } elseif ($num == 3) {
                 return "<span class='label label-danger'>差评</span>";
+            } elseif ($num == 100) {
+                return "<span class='label label-danger'>很不满</span>";
+            } elseif ($num == 200) {
+                return "<span class='label label-success'>很满意</span>";
             } else {
                 return "<span class='label label-default'>未评价</span>";
             }
@@ -71,7 +74,16 @@ class EvaluateController extends AdminController
             1 => "好评",
             2 => "中评",
             3 => "差评",
+            100 => "很不满",
+            200 => "很满意",
         ]);
+
+        // Button.inline(text="很不满", data="evaluate?num=100&data_id=%s" % data_id),
+        // Button.inline(text="不满", data="evaluate?num=3&data_id=%s" % data_id), # 差评
+        // Button.inline(text="一般", data="evaluate?num=2&data_id=%s" % data_id), # 中评
+        // Button.inline(text="满意", data="evaluate?num=1&data_id=%s" % data_id), # 好评
+        // Button.inline(text="很满意", data="evaluate?num=200&data_id=%s" % data_id),
+        
         $grid->column('typee', "中差评原因")->display(function ($typee) {
             if ($typee == 1) {
                 return "<span class='label label-default'>效率慢</span>";
