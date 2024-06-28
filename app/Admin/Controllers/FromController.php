@@ -46,7 +46,7 @@ class FromController extends AdminController
         });
 
         $grid->column('id', 'ID')->sortable();
-        $grid->column('user_tg_id', 'user_tg_id')->modal("用户详情", Messages::class);
+        $grid->column('user_tg_id', 'user_tg_id')->modal(Messages::class);
         $grid->column('username', "username");
         $grid->column('firstname', "昵称");
         $grid->column('user_id', "分配人")->display(function ($user_id) {
