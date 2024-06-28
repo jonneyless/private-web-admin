@@ -94,56 +94,11 @@
     }
 </style>
 <div style="text-align: left">
-    <input name="from_id" type="hidden" value="{{ $from['id'] }}">
     <div class="box box-primary">
-        <div style="margin-left: 15px;margin-top: 15px;">
-            <dl style="margin-bottom: 0px;">
-                <dd>
-                    验证状态：
-                    <div class="form-group" style="display: inline-block;">
-                        <label>
-                            <input type="radio" name="r1" class="flag"
-                                   @if ($from['flag'] == 1) checked @endif value="1">
-                            待验证
-                        </label>
-                        &nbsp;&nbsp;&nbsp;
-                        <label>
-                            <input type="radio" name="r1" class="flag"
-                                   @if ($from['flag'] == 2) checked @endif value="2">
-                            成功
-                        </label>
-                        &nbsp;&nbsp;&nbsp;
-                        <label>
-                            <input type="radio" name="r1" class="flag"
-                                   @if ($from['flag'] == 3) checked @endif value="3">
-                            失败
-                        </label>
-                    </div>
-                </dd>
-            </dl>
-            <dl style="margin-bottom: 0px;">
-                <dd>
-                    封禁状态：
-                    <div class="form-group" style="display: inline-block;">
-                        <label>
-                            <input type="radio" name="r2" class="status"
-                                   @if ($from['status'] == 1) checked @endif value="1">
-                            正常
-                        </label>
-                        &nbsp;&nbsp;&nbsp;
-                        <label>
-                            <input type="radio" name="r2" class="status"
-                                   @if ($from['status'] == 2) checked @endif value="2">
-                            封禁中
-                        </label>
-                    </div>
-                </dd>
-            </dl>
-        </div>
-        <hr style="margin-top: 0;">
         <div class="box-header with-border">
             <h3 class="box-title">{{ $from['fullname'] }}&nbsp;&nbsp;&nbsp;{{ '@' . $from['username'] }}</h3>
         </div>
+
         <div class="box-body">
             <div class="direct-chat-messages">
                 @foreach ($messages as $message)
@@ -247,36 +202,6 @@
 
 <script>
   $(function () {
-    $(".flag").click(function () {
-      let val = $(this).val();
-      let layer1 = layer.load();
-      $.ajax({
-        type: "post", data: {
-          "_token": '{{ csrf_token() }}', "from_id": $("input[name='from_id']").val(), "flag": val,
-        }, "url": "{{ adminUrl('from/changeFlag') }}", success: function (data) {
-          layer.close(layer1);
-          layer.msg(data["message"]);
-        }, error: function (data) {
-          layer.close(layer1);
-          layer.msg(data["message"]);
-        }
-      });
-    });
-    $(".status").click(function () {
-      let val = $(this).val();
-      let layer1 = layer.load();
-      $.ajax({
-        type: "post", data: {
-          "_token": '{{ csrf_token() }}', "from_id": $("input[name='from_id']").val(), "status": val,
-        }, "url": "{{ adminUrl('from/changeStatus') }}", success: function (data) {
-          layer.close(layer1);
-          layer.msg(data["message"]);
-        }, error: function (data) {
-          layer.close(layer1);
-          layer.msg(data["message"]);
-        }
-      });
-    });
     $(".file_path").click(function () {
       $('.popup-image').children('img').attr('src', this.src);
       $(".popup-image").show();
