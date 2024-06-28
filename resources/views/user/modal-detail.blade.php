@@ -1,6 +1,6 @@
 <style>
     .direct-chat-messages {
-        min-height: 400px;
+        /*min-height: 400px;*/
     }
 
     .ml5 {
