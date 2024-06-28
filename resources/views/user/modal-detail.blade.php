@@ -28,7 +28,8 @@
         float: right;
         margin-right: 0px !important;
         margin-left: 100px !important;
-        background: #a5dc86;
+        background: #00a65a;
+        color: #fff;
     }
 
     .file_path {
