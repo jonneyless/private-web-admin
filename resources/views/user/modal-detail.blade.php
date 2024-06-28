@@ -13,22 +13,22 @@
 
     .direct-chat-text {
         position: relative;
+        background: #f1f2f6;
+        border: 1px solid #f1f2f6;
     }
 
     .direct-chat-text-left {
         display: inline-block;
         margin-left: 5px !important;
+        margin-right: 100px !important;
     }
 
     .direct-chat-text-right {
         display: inline-block;
         float: right;
         margin-right: 0px !important;
-    }
-
-    .direct-chat-text {
-        background: #f1f2f6;
-        border: 1px solid #f1f2f6;
+        margin-left: 100px !important;
+        background: #a5dc86;
     }
 
     .file_path {
