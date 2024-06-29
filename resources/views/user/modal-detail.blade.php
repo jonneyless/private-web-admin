@@ -15,21 +15,22 @@
         position: relative;
         background: #f1f2f6;
         border: 1px solid #f1f2f6;
+        color: #000;
+        font-size: 14px;
+        max-width: 700px;
+        padding: 10px;
     }
 
     .direct-chat-text-left {
         display: inline-block;
-        margin-left: 5px !important;
-        margin-right: 100px !important;
+        margin-left: 10px !important;
     }
 
     .direct-chat-text-right {
         display: inline-block;
         float: right;
-        margin-right: 0px !important;
-        margin-left: 100px !important;
-        background: #00a65a;
-        color: #fff;
+        margin-right: 10px !important;
+        background: #c1e2b3;
     }
 
     .file_path {
@@ -62,6 +63,52 @@
     .direct-chat-text:before {
         display: none;
     }
+
+    .direct-chat-timestamp {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .direct-chat-name {
+        color: #aa4a24;
+        font-weight: bold !important;
+        font-size: 14px;
+    }
+
+    div.direct-chat-img {
+        padding-top: 5px;
+    }
+
+    img.direct-chat-img {
+        margin-top: 5px;
+    }
+
+    .direct-chat-img .fa-telegram {
+        font-size: 40px;
+        color: #00a7d0;
+    }
+
+    .triangle {
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+    }
+
+    .direct-chat-text .triangle {
+        position: absolute;
+        top: 10px;
+    }
+
+    .direct-chat-text-left .triangle {
+        left: -8px;
+        border-right: 8px solid #f1f2f6;
+    }
+
+    .direct-chat-text-right .triangle {
+        right: -8px;
+        border-left: 8px solid #c1e2b3;
+    }
 </style>
 <div class="row" style="text-align: left">
     <h3 class="custom-modal-title" style="display: none">{{ $from['fullname'] }}&nbsp;&nbsp;&nbsp;{{ '@' . $from['username'] }}</h3>
@@ -69,12 +116,11 @@
         @foreach ($messages as $message)
             @if ($message['user_id'] == -1)
                 <div class="direct-chat-msg">
-                    <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-timestamp pull-left ml5">{{ $message['created_at'] }} -
-                        {{ $message['type'] }}</span>
-                    </div>
+                    <div class="direct-chat-img"><i class="fa fa-telegram"></i></div>
+                    <div class="direct-chat-text direct-chat-text-left">
+                        <div class="triangle"></div>
                     @if ($message['type'] == 1)
-                        <div class="direct-chat-text direct-chat-text-left">{!! $message['info'] !!}</div>
+                            {!! $message['info'] !!}
                     @elseif ($message['type'] == 2)
                         <img src="{{ $message['file_path'] }}" alt="" class="file_path">
                     @elseif ($message['type'] == 4)
@@ -104,37 +150,30 @@
                             <a href="{{ $message['file_path'] }}" hidden>{{ $message['file_path'] }}</a>
                         </div>
                     @endif
+
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-timestamp pull-left">{{ $message['created_at'] }}</span>
+                        </div>
+                    </div>
                 </div>
             @else
                 <div class="direct-chat-msg right">
-                    <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-right">{{ $fullname }}</span>
-                        <span class="direct-chat-timestamp pull-right mr5">{{ $message['created_at'] }}</span>
-                    </div>
+                    <img class="direct-chat-img" src="/img/hwdb.jpg"/>
+                    <div class="direct-chat-text direct-chat-text-right">
+                        <div class="triangle"></div>
                     @if ($message['type'] == 1)
-                        <div class="direct-chat-text direct-chat-text-right">
                             {!! $message['info'] !!}
-                        </div>
                     @elseif ($message['type'] == 2)
-                        <div class="direct-chat-text direct-chat-text-right">
                             <img src="{{ $message['file_path'] }}" alt="" class="file_path">
-                        </div>
                     @elseif ($message['type'] == 4)
-                        <div class="direct-chat-text direct-chat-text-right">
                             <audio controls>
-                                <source src="{{ $message['file_path'] }}"
-                                        type="audio/{{ pathinfo($message['file_path'])['extension'] }}">
+                                <source src="{{ $message['file_path'] }}" type="audio/{{ pathinfo($message['file_path'])['extension'] }}">
                             </audio>
-                        </div>
                     @elseif ($message['type'] == 5)
-                        <div class="direct-chat-text direct-chat-text-right">
                             <video width="190" controls>
-                                <source src="{{ $message['file_path'] }}"
-                                        type="video/{{ pathinfo($message['file_path'])['extension'] }}">
+                                <source src="{{ $message['file_path'] }}" type="video/{{ pathinfo($message['file_path'])['extension'] }}">
                             </video>
-                        </div>
                     @elseif ($message['type'] == 6)
-                        <div class="direct-chat-text direct-chat-text-right">
                             <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -148,8 +187,14 @@
                                     {{ pathinfo($message['file_path'])['extension'] }} - 文件</p>
                             </div>
                             <a href="{{ $message['file_path'] }}" hidden>{{ $message['file_path'] }}</a>
-                        </div>
                     @endif
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-timestamp pull-right">{{ $message['created_at'] }}</span>
+                        </div>
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-name pull-right">{{ $fullname }}</span>
+                        </div>
+                    </div>
                 </div>
             @endif
         @endforeach
