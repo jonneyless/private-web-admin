@@ -11,23 +11,6 @@ class BusinessIntro extends BaseModel
         return $this->belongsTo(Business::class, 'business_id', 'id');
     }
 
-    public function getKeywordsAttribute($value)
-    {
-        return join(",", array_values(json_decode($value, true) ? : []));
-    }
-
-    public function setKeywordsAttribute($value)
-    {
-
-        if ($value) {
-            $value = array_values(explode(",", $value));
-        } else {
-            $value = [];
-        }
-
-        $this->attributes['keywords'] = json_encode($value);
-    }
-
     public function getButtonsAttribute($value)
     {
         return array_values(json_decode($value, true) ? : []);
@@ -42,6 +25,6 @@ class BusinessIntro extends BaseModel
             $value = [];
         }
 
-        $this->attributes['buttons'] = json_encode($value);
+        $this->attributes['buttons'] = json_encode($value, JSON_UNESCAPED_UNICODE);
     }
 }

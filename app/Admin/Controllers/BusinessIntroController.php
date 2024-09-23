@@ -47,7 +47,7 @@ class BusinessIntroController extends AdminController
         $form = new Form(new BusinessIntro());
 
         $form->select('business_id', __('业务'))->options(Business::getSelectData())->rules('required');
-        $form->text('intro', __('欢迎语'));
+        $form->textarea('intro', __('欢迎语'));
         $form->tags('keywords', __('关键词'));
 
         $form->table('buttons', __('按钮组'), function ($table) {
