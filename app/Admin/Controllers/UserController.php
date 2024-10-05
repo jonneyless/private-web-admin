@@ -78,6 +78,7 @@ class UserController extends AdminController
         $form->text('name', __('用户名'));
         $form->password('password', "密码")->rules('required');
         $form->select("business_id", "业务分类")->options($business_data);
+        $form->radio('is_global', __('全局业务'))->options([0 => '否', 1 => '是'])->default(0);
         $form->radio('status', __('状态'))->options(['1' => '在线', '2' => '离线'])->default('1');
 
         $form->tools(function (Form\Tools $tools) {
