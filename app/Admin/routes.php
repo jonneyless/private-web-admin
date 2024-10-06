@@ -21,6 +21,7 @@ Route::group([
     $router->resource('autoreply', AutoReplyController::class);
     $router->resource('business', BusinessController::class);
     $router->resource('businessIntro', BusinessIntroController::class);
+    $router->resource('sensitive-words', SensitiveWordsController::class);
     $router->resource('allowip', AllowIpController::class);
     
     $router->post('user/changeFlag', 'UserController@changeFlag');
